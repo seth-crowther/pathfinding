@@ -7,10 +7,10 @@ public class Cell extends JButton {
     private Cell cell = this;
     private int x;
     private int y;
-    private static Color green = new Color(0, 255, 0);
-    private static Color red = new Color(255, 0, 0);
-    private static Color gray = new Color(108, 108, 108);
-    private static Color black = new Color(0, 0, 0);
+    private final static Color green = new Color(0, 255, 0);
+    private final static Color red = new Color(255, 0, 0);
+    private final static Color gray = new Color(108, 108, 108);
+    private final static Color black = new Color(0, 0, 0);
     private ActionListener cellHandler;
 
     public enum backgroundColor {
@@ -37,34 +37,32 @@ public class Cell extends JButton {
         cellHandler = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (cell == Algorithms.start) {
+                    Algorithms.start = null;
+                }
+                else if (cell == Algorithms.end) {
+                    Algorithms.end = null;
+                }
+
                 switch (Menu.current) {
-                    case start:
+                    case start -> {
                         if (Algorithms.start != null) {
                             Algorithms.start.setBackground(gray);
                         }
                         Algorithms.start = cell;
                         setBackground(green);
+                    }
 
-                        break;
-                    case end:
+                    case end -> {
                         if (Algorithms.end != null) {
                             Algorithms.end.setBackground(gray);
                         }
                         Algorithms.end = cell;
                         setBackground(red);
-                        break;
-                    case obstacle:
-                        setBackground(black);
-                        break;
-                    default:
-                        setBackground(gray);
-                        if (cell == Algorithms.start) {
-                            Algorithms.start = null;
-                        }
-                        else if (cell == Algorithms.end) {
-                            Algorithms.end = null;
-                        }
-                        break;
+                    }
+
+                    case obstacle -> setBackground(black);
+                    default -> setBackground(gray);
                 }
             }
         };
