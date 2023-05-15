@@ -39,18 +39,35 @@ public class Cell extends JButton {
             public void actionPerformed(ActionEvent e) {
                 switch (Menu.current) {
                     case start:
-                        setBackground(green);
+                        if (Algorithms.start != null) {
+                            Algorithms.start.setBackground(gray);
+                        }
                         Algorithms.start = cell;
+                        setBackground(green);
+
                         break;
                     case end:
-                        setBackground(red);
+                        if (Algorithms.end != null) {
+                            Algorithms.end.setBackground(gray);
+                        }
                         Algorithms.end = cell;
+                        setBackground(red);
+                        break;
                     case obstacle:
                         setBackground(black);
+                        break;
                     default:
                         setBackground(gray);
+                        if (cell == Algorithms.start) {
+                            Algorithms.start = null;
+                        }
+                        else if (cell == Algorithms.end) {
+                            Algorithms.end = null;
+                        }
+                        break;
                 }
             }
         };
+        addActionListener(cellHandler);
     }
 }
