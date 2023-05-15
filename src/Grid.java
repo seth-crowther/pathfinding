@@ -14,12 +14,8 @@ public class Grid {
         numSquares = 20;
         cellSize = new Dimension(sideLength / numSquares, sideLength / numSquares);
         grid = new Cell[numSquares][numSquares];
-        createPanel();
-        createGrid();
-    }
-
-    public void createPanel() {
         panel.setLayout(new GridLayout(numSquares, numSquares));
+        createGrid();
     }
 
     public void createGrid() {

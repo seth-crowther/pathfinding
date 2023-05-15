@@ -23,6 +23,7 @@ public class Canvas {
         main.setLayout(new BoxLayout(main.getContentPane(), BoxLayout.X_AXIS));
 
         Grid g = new Grid(gridPanel);
+        Menu m = new Menu(menuPanel);
 
         main.pack();
         main.setVisible(true);
