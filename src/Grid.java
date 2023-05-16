@@ -4,13 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Grid {
-    Cell[][] grid;
-    JPanel panel;
+    private static Cell[][] grid;
+    private JPanel panel;
     private static int sideLength;
     private static int numSquares;
     private static Dimension cellSize;
 
-    public Cell[][] getGrid() {
+    public static Cell[][] getGrid() {
         return grid;
     }
 
@@ -39,7 +39,7 @@ public class Grid {
         return (x >= 0 && x < numSquares && y >= 0 && y < numSquares);
     }
 
-    public Set<Cell> getAdjacentCells(int x, int y) {
+    public static Set<Cell> getAdjacentCells(int x, int y) {
         Set<Cell> toReturn = new HashSet<>();
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j = y - 1; j <= y + 1; j++) {
@@ -48,10 +48,11 @@ public class Grid {
                 }
             }
         }
+        toReturn.remove(grid[x][y]);
         return toReturn;
     }
 
-    public Cell getClosestCell(Cell input) {
+    public static Cell getClosestCell(Cell input) {
         Cell toReturn = null;
         float minDist = Float.MAX_VALUE;
         for (Cell c: getAdjacentCells(input.getXCoord(), input.getYCoord())) {

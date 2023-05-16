@@ -95,7 +95,7 @@ public class Menu {
                     JOptionPane.showMessageDialog(panel, "Cannot simulate without start and end cell");
                 }
                 else {
-
+                    Algorithms.dijkstra();
                 }
             }
         });
