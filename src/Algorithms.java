@@ -11,6 +11,7 @@ public class Algorithms {
     }
 
     public static void dijkstra() {
+        Grid.resetCells();
         start.setDist(0);
         Set<Cell> unvisited = new HashSet<>();
         Set<Cell> visited = new HashSet<>();
@@ -22,7 +23,6 @@ public class Algorithms {
         while (unvisited.size() > 0) {
             Cell current = Grid.minimumFrom(unvisited);
             unvisited.remove(current);
-            System.out.println(unvisited.size());
             for (Cell v: Grid.getAdjacentCells(current.getXCoord(), current.getYCoord())) {
                 if (!unvisited.contains(v)) {
                     continue;
@@ -36,8 +36,13 @@ public class Algorithms {
             visited.add(current);
         }
 
-        for(Cell path: tracePath()) {
-            path.setBackground(Color.BLUE);
+        List<Cell> finalPath = tracePath();
+        if (finalPath.size() > 0) {
+            for(int i = 0; i < finalPath.size(); i++) {
+                if (i != 0 && i != finalPath.size() - 1) {
+                    finalPath.get(i).setBackground(Color.BLUE);
+                }
+            }
         }
     }
 

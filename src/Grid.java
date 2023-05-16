@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -56,11 +57,23 @@ public class Grid {
         Cell toReturn = null;
         float minDist = Float.MAX_VALUE;
         for (Cell c: cells) {
-            if (c.getDist() < minDist) {
+            if (c.getDist() <= minDist) {
                 minDist = c.getDist();
                 toReturn = c;
             }
         }
         return toReturn;
+    }
+
+    public static void resetCells() {
+        for (Cell[] row: Grid.getGrid()) {
+            for (Cell c: row) {
+                c.setDist(Float.MAX_VALUE);
+                c.setPrev(null);
+                if (c.getBackground() == Color.BLUE) {
+                    c.setColor(Cell.backgroundColor.gray);
+                }
+            }
+        }
     }
 }
