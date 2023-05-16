@@ -7,6 +7,7 @@ public class Algorithms {
     }
 
     public void dijkstra() {
+        start.setDist(0);
 
     }
 }

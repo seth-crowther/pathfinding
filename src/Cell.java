@@ -17,6 +17,13 @@ public class Cell extends JButton {
     private final static Color gray = new Color(108, 108, 108);
     private final static Color black = new Color(0, 0, 0);
     private ActionListener cellHandler;
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
     public boolean getObstacle() {
         return obstacle;
     }
@@ -101,15 +108,9 @@ public class Cell extends JButton {
         addActionListener(cellHandler);
     }
 
-    public Set<Cell> getAdjacentCells() {
-        Set<Cell> toReturn = new HashSet<>();
-        for (int i = x - 1; i <= x + 1; i++) {
-            for (int j = y - 1; j <= y + 1; j++) {
-                if (Grid.isInGrid(i, j) && !Grid.getGrid()[i][j].getObstacle()) {
-                    toReturn.add(Grid.getGrid()[i][j]);
-                }
-            }
-        }
-        return toReturn;
+    public float distanceTo(Cell other) {
+        float xDiff = other.x - x;
+        float yDiff = other.y - y;
+        return (float)(Math.sqrt(xDiff * xDiff + yDiff * yDiff));
     }
 }

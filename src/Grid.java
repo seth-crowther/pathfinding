@@ -1,14 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Grid {
-    private static Cell[][] grid;
-    private JPanel panel;
+    Cell[][] grid;
+    JPanel panel;
     private static int sideLength;
     private static int numSquares;
     private static Dimension cellSize;
 
-    public static Cell[][] getGrid() {
+    public Cell[][] getGrid() {
         return grid;
     }
 
@@ -35,5 +37,29 @@ public class Grid {
 
     public static boolean isInGrid(int x, int y) {
         return (x >= 0 && x < numSquares && y >= 0 && y < numSquares);
+    }
+
+    public Set<Cell> getAdjacentCells(int x, int y) {
+        Set<Cell> toReturn = new HashSet<>();
+        for (int i = x - 1; i <= x + 1; i++) {
+            for (int j = y - 1; j <= y + 1; j++) {
+                if (isInGrid(i, j) && !grid[i][j].getObstacle()) {
+                    toReturn.add(grid[i][j]);
+                }
+            }
+        }
+        return toReturn;
+    }
+
+    public Cell getClosestCell(Cell input) {
+        Cell toReturn = null;
+        float minDist = Float.MAX_VALUE;
+        for (Cell c: getAdjacentCells(input.getX(), input.getY())) {
+            if (c.getDist() + input.distanceTo(c) < minDist) {
+                minDist = c.getDist() + input.distanceTo(c);
+                toReturn = c;
+            }
+        }
+        return toReturn;
     }
 }
