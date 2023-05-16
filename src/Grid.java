@@ -2,11 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Grid {
-    Cell[][] grid;
-    JPanel panel;
+    private static Cell[][] grid;
+    private JPanel panel;
     private static int sideLength;
     private static int numSquares;
     private static Dimension cellSize;
+
+    public static Cell[][] getGrid() {
+        return grid;
+    }
 
     public Grid(JPanel panel) {
         this.panel = panel;
@@ -27,5 +31,9 @@ public class Grid {
                 panel.add(newCell);
             }
         }
+    }
+
+    public static boolean isInGrid(int x, int y) {
+        return (x >= 0 && x < numSquares && y >= 0 && y < numSquares);
     }
 }

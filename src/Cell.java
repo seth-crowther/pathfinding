@@ -2,16 +2,40 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Cell extends JButton {
     private Cell cell = this;
     private int x;
     private int y;
+    private boolean obstacle = false;
+    private float dist = Float.MAX_VALUE;
+    private Cell prev = null;
     private final static Color green = new Color(0, 255, 0);
     private final static Color red = new Color(255, 0, 0);
     private final static Color gray = new Color(108, 108, 108);
     private final static Color black = new Color(0, 0, 0);
     private ActionListener cellHandler;
+    public boolean getObstacle() {
+        return obstacle;
+    }
+
+    public float getDist() {
+        return dist;
+    }
+
+    public void setDist(float value) {
+        dist = value;
+    }
+
+    public Cell getPrev() {
+        return prev;
+    }
+
+    public void setPrev(Cell value) {
+        prev = value;
+    }
 
     public enum backgroundColor {
         green,
@@ -51,6 +75,7 @@ public class Cell extends JButton {
                         }
                         Algorithms.start = cell;
                         setBackground(green);
+                        obstacle = false;
                     }
 
                     case end -> {
@@ -59,13 +84,32 @@ public class Cell extends JButton {
                         }
                         Algorithms.end = cell;
                         setBackground(red);
+                        obstacle = false;
                     }
 
-                    case obstacle -> setBackground(black);
-                    default -> setBackground(gray);
+                    case obstacle -> {
+                        setBackground(black);
+                        obstacle = true;
+                    }
+                    default -> {
+                        setBackground(gray);
+                        obstacle = false;
+                    }
                 }
             }
         };
         addActionListener(cellHandler);
+    }
+
+    public Set<Cell> getAdjacentCells() {
+        Set<Cell> toReturn = new HashSet<>();
+        for (int i = x - 1; i <= x + 1; i++) {
+            for (int j = y - 1; j <= y + 1; j++) {
+                if (Grid.isInGrid(i, j) && !Grid.getGrid()[i][j].getObstacle()) {
+                    toReturn.add(Grid.getGrid()[i][j]);
+                }
+            }
+        }
+        return toReturn;
     }
 }
