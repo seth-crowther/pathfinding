@@ -54,7 +54,7 @@ public class Grid {
     public Cell getClosestCell(Cell input) {
         Cell toReturn = null;
         float minDist = Float.MAX_VALUE;
-        for (Cell c: getAdjacentCells(input.getX(), input.getY())) {
+        for (Cell c: getAdjacentCells(input.getXCoord(), input.getYCoord())) {
             if (c.getDist() + input.distanceTo(c) < minDist) {
                 minDist = c.getDist() + input.distanceTo(c);
                 toReturn = c;

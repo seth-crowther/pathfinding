@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Cell extends JButton {
     private Cell cell = this;
@@ -17,11 +15,11 @@ public class Cell extends JButton {
     private final static Color gray = new Color(108, 108, 108);
     private final static Color black = new Color(0, 0, 0);
     private ActionListener cellHandler;
-    public int getX() {
+    public int getXCoord() {
         return x;
     }
 
-    public int getY() {
+    public int getYCoord() {
         return y;
     }
     public boolean getObstacle() {
