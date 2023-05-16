@@ -111,4 +111,12 @@ public class Cell extends JButton {
         float yDiff = other.y - y;
         return (float)(Math.sqrt(xDiff * xDiff + yDiff * yDiff));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Cell)) {
+            return false;
+        }
+        return (this.x == ((Cell) o).getXCoord() && this.y == ((Cell) o).getYCoord());
+    }
 }

@@ -11,50 +11,59 @@ public class Algorithms {
     }
 
     public static void dijkstra() {
+
+        // Initialising cells and unvisited set
         Grid.resetCells();
         start.setDist(0);
         Set<Cell> unvisited = new HashSet<>();
-        Set<Cell> visited = new HashSet<>();
 
+        // Adding all cells to unvisited set
         for (Cell[] row: Grid.getGrid()) {
             unvisited.addAll(Arrays.asList(row));
         }
 
         while (unvisited.size() > 0) {
+
             Cell current = Grid.minimumFrom(unvisited);
             unvisited.remove(current);
+
             for (Cell v: Grid.getAdjacentCells(current.getXCoord(), current.getYCoord())) {
+
+                // Skip checking cell if it's already been visited
                 if (!unvisited.contains(v)) {
                     continue;
                 }
+
                 float alt = current.getDist() + current.distanceTo(v);
                 if (alt < v.getDist()) {
                     v.setDist(alt);
                     v.setPrev(current);
                 }
             }
-            visited.add(current);
+
+            // Exit once end cell has been visited
+            if (current.equals(end)) {
+                break;
+            }
         }
 
-        List<Cell> finalPath = tracePath();
-        if (finalPath.size() > 0) {
-            for(int i = 0; i < finalPath.size(); i++) {
-                if (i != 0 && i != finalPath.size() - 1) {
-                    finalPath.get(i).setBackground(Color.BLUE);
-                }
+        Set<Cell> finalPath = tracePath();
+        for (Cell path: finalPath) {
+            // Only colour cells between start and end cells
+            if (!path.equals(start) && !path.equals(end)) {
+                path.setBackground(Color.BLUE);
             }
         }
     }
 
-    public static List<Cell> tracePath() {
-        List<Cell> toReturn = new ArrayList<>();
+    public static Set<Cell> tracePath() {
+        Set<Cell> toReturn = new HashSet<>();
         Cell c = end;
         while(c.getPrev() != null) {
             toReturn.add(c);
             c = c.getPrev();
         }
         toReturn.add(c);
-        Collections.reverse(toReturn);
         return toReturn;
     }
 }

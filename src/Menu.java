@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 
 public class Menu {
     private JPanel panel;
@@ -95,7 +96,10 @@ public class Menu {
                     JOptionPane.showMessageDialog(panel, "Cannot simulate without start and end cell");
                 }
                 else {
+                    Time start = new Time(System.currentTimeMillis());
                     Algorithms.dijkstra();
+                    Time end = new Time(System.currentTimeMillis());
+                    System.out.println("Path found in: " + (end.getTime() - start.getTime() + " ms"));
                 }
             }
         });
