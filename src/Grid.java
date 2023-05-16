@@ -49,7 +49,6 @@ public class Grid {
                 }
             }
         }
-        toReturn.remove(grid[x][y]);
         return toReturn;
     }
 
