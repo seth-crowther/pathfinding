@@ -14,34 +14,30 @@ public class Algorithms {
         start.setDist(0);
         Set<Cell> unvisited = new HashSet<>();
         Set<Cell> visited = new HashSet<>();
+
         for (Cell[] row: Grid.getGrid()) {
             unvisited.addAll(Arrays.asList(row));
         }
-        unvisited.remove(start);
 
-        Cell current = start;
-
-        for (Cell c: Grid.getAdjacentCells(current.getXCoord(), current.getYCoord())) {
-            if (visited.contains(c)) {
-                continue;
-            }
-
-            float alt = current.getDist() + current.distanceTo(c);
-            if (alt < c.getDist()) {
-                c.setDist(alt);
-                c.setPrev(current);
-            }
-
-            if (current == end) {
-                System.out.println("Reached end");
-                for (Cell path: tracePath()) {
-                    path.setBackground(Color.BLUE);
+        while (unvisited.size() > 0) {
+            Cell current = Grid.minimumFrom(unvisited);
+            unvisited.remove(current);
+            System.out.println(unvisited.size());
+            for (Cell v: Grid.getAdjacentCells(current.getXCoord(), current.getYCoord())) {
+                if (!unvisited.contains(v)) {
+                    continue;
                 }
-                return;
+                float alt = current.getDist() + current.distanceTo(v);
+                if (alt < v.getDist()) {
+                    v.setDist(alt);
+                    v.setPrev(current);
+                }
             }
-
             visited.add(current);
-            current = Grid.getClosestCell(current);
+        }
+
+        for(Cell path: tracePath()) {
+            path.setBackground(Color.BLUE);
         }
     }
 

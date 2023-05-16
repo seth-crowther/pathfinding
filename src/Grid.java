@@ -52,12 +52,12 @@ public class Grid {
         return toReturn;
     }
 
-    public static Cell getClosestCell(Cell input) {
+    public static Cell minimumFrom(Set<Cell> cells) {
         Cell toReturn = null;
         float minDist = Float.MAX_VALUE;
-        for (Cell c: getAdjacentCells(input.getXCoord(), input.getYCoord())) {
-            if (c.getDist() + input.distanceTo(c) < minDist) {
-                minDist = c.getDist() + input.distanceTo(c);
+        for (Cell c: cells) {
+            if (c.getDist() < minDist) {
+                minDist = c.getDist();
                 toReturn = c;
             }
         }
