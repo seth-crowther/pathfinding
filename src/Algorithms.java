@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public class Algorithms {
     public static Cell start;
@@ -47,7 +46,7 @@ public class Algorithms {
             }
         }
 
-        Set<Cell> finalPath = tracePath();
+        Set<Cell> finalPath = getPath();
         for (Cell path: finalPath) {
             // Only colour cells between start and end cells
             if (!path.equals(start) && !path.equals(end)) {
@@ -56,7 +55,7 @@ public class Algorithms {
         }
     }
 
-    public static Set<Cell> tracePath() {
+    public static Set<Cell> getPath() {
         Set<Cell> toReturn = new HashSet<>();
         Cell c = end;
         while(c.getPrev() != null) {

@@ -99,7 +99,7 @@ public class Menu {
                     Time start = new Time(System.currentTimeMillis());
                     Algorithms.dijkstra();
                     Time end = new Time(System.currentTimeMillis());
-                    System.out.println("Path found in: " + (end.getTime() - start.getTime() + " ms"));
+                    System.out.println("Path found in: " + (end.getTime() - start.getTime() + "ms"));
                 }
             }
         });
