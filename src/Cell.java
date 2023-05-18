@@ -8,7 +8,7 @@ public class Cell extends JButton {
     private int x;
     private int y;
     private boolean obstacle = false;
-    private float dist = Float.MAX_VALUE;
+    private float f = Float.MAX_VALUE;
     private Cell prev = null;
     private final static Color green = new Color(0, 255, 0);
     private final static Color red = new Color(255, 0, 0);
@@ -27,11 +27,11 @@ public class Cell extends JButton {
     }
 
     public float getDist() {
-        return dist;
+        return f;
     }
 
     public void setDist(float value) {
-        dist = value;
+        f = value;
     }
 
     public Cell getPrev() {

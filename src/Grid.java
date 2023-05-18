@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,10 +53,10 @@ public class Grid {
 
     public static Cell minimumFrom(Set<Cell> cells) {
         Cell toReturn = null;
-        float minDist = Float.MAX_VALUE;
+        float minF = Float.MAX_VALUE;
         for (Cell c: cells) {
-            if (c.getDist() <= minDist) {
-                minDist = c.getDist();
+            if (c.getDist() <= minF) {
+                minF = c.getDist();
                 toReturn = c;
             }
         }
