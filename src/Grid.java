@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,22 +53,44 @@ public class Grid {
         return toReturn;
     }
 
-    public static Cell minimumFrom(Set<Cell> cells) {
+    public static Cell getNextCell(Set<Cell> cells) {
+        List<Cell> minFCost = new ArrayList<>();
         Cell toReturn = null;
-        float minF = Float.MAX_VALUE;
+        float min = Float.MAX_VALUE;
+
         for (Cell c: cells) {
-            if (c.getDist() <= minF) {
-                minF = c.getDist();
-                toReturn = c;
+            if (c.getFCost() < min) {
+                min = c.getFCost();
+                minFCost.clear();
+                minFCost.add(c);
+            }
+            else if (c.getFCost() == min) {
+                minFCost.add(c);
             }
         }
+
+        if (minFCost.size() > 1) {
+            for (Cell c: minFCost) {
+                if (c.getHCost() <= min) {
+                    min = c.getHCost();
+                    toReturn = c;
+                }
+            }
+        }
+        else if (minFCost.size() == 1) {
+            return minFCost.get(0);
+        }
+        else {
+            return null;
+        }
+
         return toReturn;
     }
 
     public static void resetCells() {
         for (Cell[] row: Grid.getGrid()) {
             for (Cell c: row) {
-                c.setDist(Float.MAX_VALUE);
+                c.setFCost(Float.MAX_VALUE);
                 c.setPrev(null);
                 if (c.getBackground() == Color.BLUE) {
                     c.setColor(Cell.backgroundColor.gray);

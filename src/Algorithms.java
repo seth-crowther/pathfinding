@@ -13,7 +13,7 @@ public class Algorithms {
 
         // Initialising cells and unvisited set
         Grid.resetCells();
-        start.setDist(0);
+        start.setFCost(0);
         Set<Cell> unvisited = new HashSet<>();
 
         // Adding all cells to unvisited set
@@ -21,29 +21,35 @@ public class Algorithms {
             unvisited.addAll(Arrays.asList(row));
         }
 
+        Cell current = start;
+
         while (unvisited.size() > 0) {
 
-            Cell current = Grid.minimumFrom(unvisited);
-            unvisited.remove(current);
+            if (current != null) {
+                for (Cell v : Grid.getAdjacentCells(current.getXCoord(), current.getYCoord())) {
+                    // Skip checking cell if it's already been visited
+                    if (!unvisited.contains(v)) {
+                        continue;
+                    }
 
-            for (Cell v: Grid.getAdjacentCells(current.getXCoord(), current.getYCoord())) {
-
-                // Skip checking cell if it's already been visited
-                if (!unvisited.contains(v)) {
-                    continue;
+                    v.setGCost(start.distanceTo(v));
+                    v.setHCost(end.distanceTo(v));
+                    v.setFCost(v.getGCost() + v.getHCost());
                 }
 
-                float alt = current.getDist() + current.distanceTo(v);
-                if (alt < v.getDist()) {
-                    v.setDist(alt);
-                    v.setPrev(current);
-                }
+
             }
+
+            Cell prev = current;
+            unvisited.remove(current);
 
             // Exit once end cell has been visited
             if (current.equals(end)) {
                 break;
             }
+
+            current = Grid.getNextCell(unvisited);
+            current.setPrev(prev);
         }
 
         Set<Cell> finalPath = getPath();

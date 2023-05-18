@@ -8,7 +8,9 @@ public class Cell extends JButton {
     private int x;
     private int y;
     private boolean obstacle = false;
-    private float f = Float.MAX_VALUE;
+    private float fCost = Float.MAX_VALUE;
+    private float gCost;
+    private float hCost;
     private Cell prev = null;
     private final static Color green = new Color(0, 255, 0);
     private final static Color red = new Color(255, 0, 0);
@@ -26,12 +28,24 @@ public class Cell extends JButton {
         return obstacle;
     }
 
-    public float getDist() {
-        return f;
+    public float getFCost() {
+        return fCost;
     }
 
-    public void setDist(float value) {
-        f = value;
+    public void setFCost(float value) {
+        fCost = value;
+    }
+    public float getGCost() {
+        return gCost;
+    }
+    public void setGCost(float value) {
+        gCost = value;
+    }
+    public float getHCost() {
+        return hCost;
+    }
+    public void setHCost(float value) {
+        hCost = value;
     }
 
     public Cell getPrev() {
