@@ -41,8 +41,11 @@ public class Grid {
         return (x >= 0 && x < numSquares && y >= 0 && y < numSquares);
     }
 
-    public static Set<Cell> getAdjacentCells(int x, int y) {
+    public static Set<Cell> getAdjacentCells(Cell input) {
         Set<Cell> toReturn = new HashSet<>();
+        int x = input.getXCoord();
+        int y = input.getYCoord();
+
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j = y - 1; j <= y + 1; j++) {
                 if (isInGrid(i, j) && !grid[i][j].getObstacle()) {
@@ -53,44 +56,13 @@ public class Grid {
         return toReturn;
     }
 
-    public static Cell getNextCell(Set<Cell> cells) {
-        List<Cell> minFCost = new ArrayList<>();
-        Cell toReturn = null;
-        float min = Float.MAX_VALUE;
 
-        for (Cell c: cells) {
-            if (c.getFCost() < min) {
-                min = c.getFCost();
-                minFCost.clear();
-                minFCost.add(c);
-            }
-            else if (c.getFCost() == min) {
-                minFCost.add(c);
-            }
-        }
-
-        if (minFCost.size() > 1) {
-            for (Cell c: minFCost) {
-                if (c.getHCost() <= min) {
-                    min = c.getHCost();
-                    toReturn = c;
-                }
-            }
-        }
-        else if (minFCost.size() == 1) {
-            return minFCost.get(0);
-        }
-        else {
-            return null;
-        }
-
-        return toReturn;
-    }
 
     public static void resetCells() {
         for (Cell[] row: Grid.getGrid()) {
             for (Cell c: row) {
                 c.setFCost(Float.MAX_VALUE);
+                c.setGCost(0);
                 c.setPrev(null);
                 if (c.getBackground() == Color.BLUE) {
                     c.setColor(Cell.backgroundColor.gray);

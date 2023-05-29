@@ -97,7 +97,7 @@ public class Menu {
                 }
                 else {
                     Time start = new Time(System.currentTimeMillis());
-                    Algorithms.dijkstra();
+                    Algorithms.aStar();
                     Time end = new Time(System.currentTimeMillis());
                     System.out.println("Path found in: " + (end.getTime() - start.getTime() + "ms"));
                 }

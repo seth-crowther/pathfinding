@@ -48,6 +48,10 @@ public class Cell extends JButton {
         hCost = value;
     }
 
+    public void updateFCost() {
+        fCost = gCost + hCost;
+    }
+
     public Cell getPrev() {
         return prev;
     }

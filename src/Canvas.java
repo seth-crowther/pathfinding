@@ -6,9 +6,10 @@ public class Canvas {
 
     JPanel gridPanel;
     JPanel menuPanel;
+    public static JFrame main;
 
     public Canvas() {
-        JFrame main = new JFrame();
+        main = new JFrame();
         gridPanel = new JPanel();
         menuPanel = new JPanel();
 
