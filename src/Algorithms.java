@@ -11,7 +11,7 @@ public class Algorithms {
         Canvas c = new Canvas();
     }
 
-    public static void aStar() {
+    public static void aStar(JPanel panel) {
 
         Grid.resetCells();
         Set<Cell> open = new HashSet<>();
@@ -52,6 +52,13 @@ public class Algorithms {
         }
 
         Set<Cell> finalPath = getPath();
+
+        // Only includes end cell
+        if (finalPath.isEmpty())
+        {
+            JOptionPane.showMessageDialog(panel, "No path could be found...");
+        }
+
         for (Cell c: finalPath) {
             if (!(c == start || c == end)) {
                 c.setBackground(Color.BLUE);
@@ -108,7 +115,7 @@ public class Algorithms {
             toReturn.add(c);
             c = c.getPrev();
         }
-        toReturn.add(c);
+        //toReturn.add(c);
         return toReturn;
     }
 }

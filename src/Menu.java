@@ -9,6 +9,7 @@ public class Menu {
     private JCheckBox end;
     private JCheckBox obstacle;
     private JButton simulate;
+    private JButton clear;
     public static paintState current;
     public enum paintState {
         start,
@@ -22,9 +23,11 @@ public class Menu {
         end = new JCheckBox();
         obstacle = new JCheckBox();
         simulate = new JButton();
+        clear = new JButton();
 
         setUpCheckBoxes();
         setUpSimulateButton();
+        setUpClearButton();
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         current = paintState.none;
@@ -97,7 +100,7 @@ public class Menu {
                 }
                 else {
                     Time start = new Time(System.currentTimeMillis());
-                    Algorithms.aStar();
+                    Algorithms.aStar(panel);
                     Time end = new Time(System.currentTimeMillis());
                     System.out.println("Path found in: " + (end.getTime() - start.getTime() + "ms"));
                 }
@@ -105,5 +108,27 @@ public class Menu {
         });
         panel.add(simulate);
         simulate.setVisible(true);
+    }
+
+    public void setUpClearButton() {
+        clear.setText("Clear");
+        clear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Algorithms.start = null;
+                Algorithms.end = null;
+
+                for (Cell[] cRow: Grid.getGrid())
+                {
+                    for (Cell c: cRow)
+                    {
+                        c.setColor(Cell.backgroundColor.gray);
+                        c.setObstacle(false);
+                    }
+                }
+            }
+        });
+        panel.add(clear);
+        clear.setVisible(true);
     }
 }

@@ -27,6 +27,10 @@ public class Cell extends JButton {
     public boolean getObstacle() {
         return obstacle;
     }
+    public void setObstacle(boolean value)
+    {
+        obstacle = value;
+    }
 
     public float getFCost() {
         return fCost;
