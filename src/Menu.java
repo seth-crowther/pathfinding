@@ -100,9 +100,11 @@ public class Menu {
                 }
                 else {
                     Time start = new Time(System.currentTimeMillis());
-                    Algorithms.aStar(panel);
-                    Time end = new Time(System.currentTimeMillis());
-                    System.out.println("Path found in: " + (end.getTime() - start.getTime() + "ms"));
+                    if (Algorithms.aStar(panel))
+                    {
+                        Time end = new Time(System.currentTimeMillis());
+                        System.out.println("Path found in: " + (end.getTime() - start.getTime() + "ms"));
+                    }
                 }
             }
         });

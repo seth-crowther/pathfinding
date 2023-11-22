@@ -9,7 +9,7 @@ public class Canvas {
     public static JFrame main;
 
     public Canvas() {
-        main = new JFrame();
+        main = new JFrame("A* Pathfinding Showcase");
         gridPanel = new JPanel();
         menuPanel = new JPanel();
 
